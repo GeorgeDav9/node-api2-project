@@ -6,4 +6,4 @@ const router = express.Router();
 
 router.use("/posts", postsRouter);
 
-mocule.exports = router;
+module.exports = router;
