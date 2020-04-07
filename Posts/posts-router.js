@@ -19,3 +19,23 @@ router.post('/', (req, res) => {
   });
  }
 })
+
+// POST /api/posts/:id/comments
+router.post('/:id/comments', (req, res) => {
+    const {text} = req.body;
+    const {post_id} = req.params;
+
+Posts.insertComment({text, post_id})
+.then(( {id:comment_id} ) =>{
+    Posts.findCommentById(comment_id)
+    .then(comment => {
+        console.log(comment);
+        if(!comment) {
+            res.status(404).json({message: "error"})
+        } else {
+            res.status(201).json(comment)
+        }
+    }).catch(err => console.log(err));
+})
+.catch(err => console.log(err));
+})
